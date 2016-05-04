@@ -7,7 +7,8 @@ RUN yum -y install git bash-completion tar wget hostname bsdtar golang vim \
 
 RUN useradd -u 1001 --create-home default && \
     mkdir /go && \
-    chown -R default /go
+    chown -R default:0 /go && \
+    chmod -R 0777 /home/default
 
 ENV GOPATH=/go \
     HOME=/home/default \
@@ -28,6 +29,7 @@ RUN /bin/bash -c "vim +PluginInstall +quitall &> /dev/null || echo Done"
 RUN cd $HOME/.vim/bundle/YouCompleteMe && ./install.py --gocode-completer
 RUN /bin/bash -c "vim +GoInstallBinaries +quitall &> /dev/null || echo Done"
 run git clone https://github.com/magicmonty/bash-git-prompt.git ${HOME}/.bash-git-prompt --depth=1
+RUN chmod -R 0777 /go
 
 CMD /bin/bash -c "while(true); do date; sleep 30; done"
 

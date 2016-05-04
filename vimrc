@@ -18,14 +18,14 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'terryma/vim-expand-region'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'fatih/vim-go'
-Plugin 'godlygeek/csapprox'
+" Plugin 'godlygeek/csapprox'
 Plugin 'fatih/molokai'
 Plugin 'tpope/vim-fugitive'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 
 " Brief help
 " :PluginList       - lists configured plugins
@@ -94,17 +94,34 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'gometalinter']
+" let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'gometalinter']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 "------------------------------------------------------------
 " Vim-go options
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_interfaces = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
 let g:go_fmt_fail_silently = 1
+
+"------------------------------------------------------------
+" NERDTree options
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer=1
+
+"------------------------------------------------------------
+" UltiSnips options
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+
+"------------------------------------------------------------
+" CtrlP options
+let g:ctrlp_cmd = 'CtrlPMRU'
 
 " }}}
 
@@ -116,7 +133,7 @@ let mapleader="\<Space>"
 let maplocalleader=","
 
 " Open a new file
-nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>o :CtrlPMRU<CR>
 
 " Repaint screen with no hilighting
 nnoremap <C-L> :nohl<CR><C-L>
@@ -163,7 +180,10 @@ nnoremap M `
 " Use leader+w for window operations
 nnoremap <Leader>w <C-w>
 
-" Uppercase/Lowercase change
+" NERDTree 
+nnoremap <Leader>n :NERDTreeFind<cr>
+nnoremap <Leader>m :NERDTreeToggle<cr>
+
 
 " }}}
 
@@ -182,7 +202,7 @@ autocmd FileType go nnoremap <Localleader>o zR :setlocal foldmethod=manual<cr>
 
 " Go-specific abbreviations ---------------------- {{{
 autocmd FileType go iabbrev iglog "github.com/golang/glog"
-autocmd FileType go iabbrev kapi kapi "k8s.io/kubernetes/pkg/api"
+autocmd FileType go iabbrev ikapi kapi "k8s.io/kubernetes/pkg/api"
 " }}}
 
 " Go-specific settings --------------------------- {{{
